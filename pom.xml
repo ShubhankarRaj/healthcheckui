@@ -6,7 +6,7 @@
 	<groupId>com.example.healthcheckui</groupId>
 	<artifactId>healthcheckui</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>healthcheckui</name>
 	<description>Demo project for Spring Boot</description>
@@ -43,8 +43,16 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>/target</directory>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
-
 </project>
