@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { Project } from '../project';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ProjectService {
-  private baseUrl = environment.BASEURL;
+  private baseUrl = 'http://localhost:7979';
 
   constructor(private http: Http) { }
 
-  getProjects(): Promise<Project[]> {
+  public getProjects(): Promise<Project[]> {
     return this.http.get(this.baseUrl + '/projects/allproj')
       .toPromise()
       .then(response => response.json() as Project[])

@@ -2,16 +2,15 @@ import { Injectable } from '@angular/core';
 import { HealthCheck } from '../healthcheck';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs/Rx';
-import { environment } from '../../environments/environment';
+import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class HealthcheckService {
 
-  private baseUrl = environment.BASEURL;
+  private baseUrl = 'http://localhost:7979';
   hcdata: HealthCheck[];
   newhcData: HealthCheck = new HealthCheck();
-
+  
 
   constructor(
     private http: Http) { }
@@ -57,9 +56,16 @@ export class HealthcheckService {
       .catch(this.handleError);
   }
 
+  public getProjects(): Promise<HealthCheck[]> {
+    return this.http.get(this.baseUrl + '/projects/allproj')
+      .toPromise()
+      .then(response => response.json() as Project[])
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('Some error occured', error);
     return Promise.reject(error.message || error);
-  }
+  }  
 
 }

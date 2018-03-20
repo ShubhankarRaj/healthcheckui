@@ -45,7 +45,7 @@ h1 {
   height: 100%;
   margin-left: -250px;
   overflow-y: auto;
-  background: #bc0006;
+  background: rgba(23, 162, 184, 0.5);
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -90,7 +90,7 @@ h1 {
   font-size: large;
   font-family: inherit;
   font-weight: bolder;
-  color: white;
+  color: rgb(18, 70, 128);
 }
 
 .sidebar-nav li a:hover {

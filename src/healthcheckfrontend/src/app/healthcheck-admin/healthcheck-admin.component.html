@@ -8,7 +8,7 @@
         <div class="form-row pb-2">
           <div class="col-3">
             <div class="btn-group dropdown">
-              <button type="button" class="btn red-btn">Select Project</button>
+              <button type="button" class="btn light-bl-btn">Select Project</button>
               <select class = "custom-select" name="projectName" id="projectId" 
               [(ngModel)]="editingHealthCheck.projectName" required >
                 <option *ngFor="let projectName of projects" [value]="projectName.projectName">{{projectName.projectName}}</option>
@@ -17,7 +17,7 @@
         </div>
         <div class="col-3">
           <div class="btn-group dropdown">
-            <button type="button" class="btn red-btn">Select Environment</button>
+            <button type="button" class="btn light-bl-btn">Select Environment</button>
             <select class = "custom-select" id="envId" name="envName" [(ngModel)]="editingHealthCheck.envName" required >
               <option *ngFor="let envName of envTypes" [value]="envName">{{envName}}</option>
             </select>
@@ -49,20 +49,20 @@
       <div class="form-row pb-2">
         <div class="col-3">
           <button
-          class="btn btn-primary blue-btn listing-button"
+          class="btn btn-primary light-bl-btn listing-button"
           type="submit"
           ng-show="addListing"
           *ngIf="!editing">Add
         </button>
         <button
-        class="btn btn-primary blue-btn listing-button"
+        class="btn btn-primary light-bl-btn listing-button"
         type="button"
         (click)="updateHealthCheck(editingHealthCheck)"
         ng-show="addListing"
         *ngIf="editing">Save
       </button>
       <button
-      class="btn btn-primary blue-btn listing-button"
+      class="btn btn-primary light-bl-btn listing-button"
       type="button"
       (click)="clearEditing()"
       ng-show="addListing">
@@ -75,7 +75,7 @@
 </div>
 
 <div class="btn-group dropdown pt-5 pb-3">
-  <button type="button" class="btn red-btn">Select Application Environment</button>
+  <button type="button" class="btn light-bl-btn">Select Application Environment</button>
   <select class = "custom-select" name="envType" id="envId" [ngModel]="selectedEnv" required (ngModelChange)="getHealthChecks($event)">  
     <option *ngFor="let envType of envTypes" [value]="envType">{{envType}}</option>
   </select>

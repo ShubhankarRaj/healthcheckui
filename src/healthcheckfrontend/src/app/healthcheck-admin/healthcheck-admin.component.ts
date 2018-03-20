@@ -42,7 +42,6 @@ export class HealthcheckAdminComponent implements OnInit {
   getAllHealthCheck(): void {
     this.healthCheckService.getAllHealthCheck()
     .then(healthChecks => this.healthChecks = healthChecks);
-
   }
 
   addHealthcheck(newhcdetail: NgForm): void {

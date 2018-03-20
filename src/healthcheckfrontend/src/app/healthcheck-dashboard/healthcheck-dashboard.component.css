@@ -22,3 +22,7 @@
   	background-color: #bc0006;
   	border-color: #bc0006;
 }
+.light-bl-btn{
+  background-color: rgba(23, 162, 184, 0.5);
+  color:rgb(18, 70, 128);
+}
