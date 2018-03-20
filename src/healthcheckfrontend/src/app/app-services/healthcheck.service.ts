@@ -3,11 +3,12 @@ import { HealthCheck } from '../healthcheck';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {Observable} from 'rxjs/Rx';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class HealthcheckService {
 
-  private baseUrl = 'http://localhost:7979';
+  private baseUrl = environment.BASEURL;
   hcdata: HealthCheck[];
   newhcData: HealthCheck = new HealthCheck();
   
