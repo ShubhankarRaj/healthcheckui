@@ -43,10 +43,10 @@ export class HealthcheckDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.envTypes = this.utilService.envTypes;
-    this.healthCheckService.getProjects()
-    .then(healthChecks => this.filterProjectNames = healthChecks );
-     this.healthCheckService.getAllHealthCheck()
-     .then(healthChecks => this.AllhealthChecks = healthChecks );
+    // this.healthCheckService.getProjects()
+    // .then(healthChecks => this.filterProjectNames = healthChecks );
+     // this.healthCheckService.getAllHealthCheck()
+     // .then(healthChecks => this.AllhealthChecks = healthChecks );
   }
 
   getHealthChecksByEnv(selectedEnv: string): void {

@@ -56,12 +56,12 @@ export class HealthcheckService {
       .catch(this.handleError);
   }
 
-  public getProjects(): Promise<HealthCheck[]> {
-    return this.http.get(this.baseUrl + '/projects/allproj')
-      .toPromise()
-      .then(response => response.json() as Project[])
-      .catch(this.handleError);
-  }
+  // public getProjects(): Promise<HealthCheck[]> {
+  //   return this.http.get(this.baseUrl + '/projects/allproj')
+  //     .toPromise()
+  //     .then(response => response.json() as Project[])
+  //     .catch(this.handleError);
+  // }
 
   private handleError(error: any): Promise<any> {
     console.error('Some error occured', error);

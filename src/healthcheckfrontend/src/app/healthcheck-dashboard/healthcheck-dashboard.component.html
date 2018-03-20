@@ -4,12 +4,12 @@
       <option *ngFor="let envType of envTypes" [value]="envType">{{envType}}</option>			
     </select>
   </div>
-  <div class="btn-group dropdown">
+  <!-- <div class="btn-group dropdown">
     <button type="button" class="btn light-bl-btn">Select Project</button>
     <select class = "custom-select" name="projectName" id="projectName" [ngModel]="projectName" required (ngModelChange)="getHealthCheckByProject($event)">  
       <option *ngFor="let filterProjectName of filterProjectNames" [value]="filterProjectName.projectName">{{filterProjectName.projectName}}</option>     
     </select>
-  </div>
+  </div> -->
   <br>
   <span class="pt-5 pb-5">&nbsp;</span>
   <table class="table table-lg-responsive table-striped" *ngFor="let uniqueProjectName of uniqueProjectNames">
