@@ -39,10 +39,12 @@ export class ProjectAdminComponent implements OnInit {
   }
 
   deleteProject(projectId: string): void {
-    this.projectService.deleteProject(projectId)
+    if(confirm("Are you sure you want to delete the project as all the associated HealthChecks will also get deleted?")){
+      this.projectService.deleteProject(projectId)
       .then(() => {
         this.projects = this.projects.filter(project => project.projectId != projectId);
       });
+    }
   }
 
   updateProject(projectData: Project): void {

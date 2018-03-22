@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'E-WISE APP SERVER MONITOR';
-   isClassVisible: false;
+   isClassVisible: boolean = false;
 }
