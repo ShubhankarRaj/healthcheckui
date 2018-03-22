@@ -30,10 +30,10 @@
         <td class="card-text">http://{{healthcheck.ipAddress}}:{{healthcheck.applicationPort}}</td>
         <td class="card-text">http://{{healthcheck.ipAddress}}:{{healthcheck.healthCheckPort}}/{{healthcheck.healthCheckUrl}}</td>
         <td><div *ngIf="healthcheck.serverStatus == true" class="blink_me">
-          <span class="badge badge-success">Server Is UP</span>
+          <span class="badge badge-success">U</span>
         </div>
         <div *ngIf="healthcheck.serverStatus == false || healthcheck.serverStatus == null" class="blink_me">
-          <span class="badge badge-danger">Server Is DOWN</span>
+          <span class="badge badge-danger">D</span>
         </div></td>
       </tr>
     </tbody>
