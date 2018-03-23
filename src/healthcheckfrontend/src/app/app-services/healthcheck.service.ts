@@ -16,20 +16,6 @@ export class HealthcheckService {
   constructor(
     private http: Http) { }
 
-  getHealthChecksForAnEnv(envType: string): Promise<HealthCheck[]> {
-    return this.http.get(this.baseUrl + '/hcheck/env/' + envType)
-      .toPromise()
-      .then(response => response.json() as HealthCheck[])
-      .catch(this.handleError);
-  }
-
-  getAllHealthCheck(): Promise<HealthCheck[]> {
-    return this.http.get(this.baseUrl + '/hcheck/all')
-      .toPromise()
-      .then(response => response.json() as HealthCheck[])
-      .catch(this.handleError);
-  }
-
   getHealthCheckById(hcheckId: string): Promise<HealthCheck> {
     return this.http.get(this.baseUrl + '/hcheck/id/' + hcheckId)
       .toPromise()
@@ -50,23 +36,22 @@ export class HealthcheckService {
   }
 
   updateHealthCheck(healthcheckData: HealthCheck): Promise<HealthCheck> {
-    console.log(healthcheckData);
     return this.http.put(this.baseUrl + '/hcheck/' + healthcheckData.healthCheckId, healthcheckData)
       .toPromise()
       .then(response => response.json() as HealthCheck)
       .catch(this.handleError);
   }
 
-  // public getProjects(): Promise<HealthCheck[]> {
-  //   return this.http.get(this.baseUrl + '/projects/allproj')
-  //     .toPromise()
-  //     .then(response => response.json() as Project[])
-  //     .catch(this.handleError);
-  // }
-
   private handleError(error: any): Promise<any> {
     console.error('Some error occured', error);
     return Promise.reject(error.message || error);
   }  
+
+  getHealthChecksByFilter(selectedEnv:string, selectedProject:string): Promise<any> {
+    return this.http.get(this.baseUrl + '/hcheck/filterhc/' + selectedEnv + '/' + selectedProject)
+      .toPromise()
+      .then(response => response.json() as HealthCheck[])
+      .catch(this.handleError);
+  }
 
 }

@@ -23,10 +23,9 @@ import { ProjectService } from "../app-services/project.service";
 export class HealthcheckDashboardComponent implements OnInit {
 
   healthChecks: HealthCheck[];
-  AllhealthChecks: HealthCheck[];
   envTypes: Array<string>;
   uniqueProjectNames: string[] = [];
-  filterProjectNames: HealthCheck[] = [];
+  filterProjectNames: Object[] = [];
   healthCheckById: HealthCheck = new HealthCheck();
   public timer;
   subscription: ISubscription;
@@ -43,21 +42,44 @@ export class HealthcheckDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.envTypes = this.utilService.envTypes;
-    // this.healthCheckService.getProjects()
-    // .then(healthChecks => this.filterProjectNames = healthChecks );
-     // this.healthCheckService.getAllHealthCheck()
-     // .then(healthChecks => this.AllhealthChecks = healthChecks );
+    this.projectService.getProjects()
+    .then(projects => this.filterProjectNames = projects );
+
   }
 
   getHealthChecksByEnv(selectedEnv: string): void {
+    this.healthChecks = [];
+    this.uniqueProjectNames = [];
+    this.selectedEnv = selectedEnv;
+    this.getHealthChecksByFilter(this.selectedEnv, this.selectedProject);
+  }
+
+  getHealthCheckByProject(selectedProject: string):void {
+    this.healthChecks = [];
+    this.uniqueProjectNames = [];
+    this.selectedProject = selectedProject;
+    this.getHealthChecksByFilter(this.selectedEnv, this.selectedProject);
+  }
+
+  getHealthCheckByHealthCheckId(healthCheckId: string): void {
+    this.healthCheckService.getHealthCheckById(healthCheckId)
+    .then(healthCheckById => this.healthCheckById = healthCheckById);
+  }
+
+  getHealthChecksByFilter(selectedEnv:string, selectedProject:string) {
     if(this.subscription){
       this.subscription.unsubscribe();
     }
-    
+
     this.timer = Observable.timer(500,3000);
     this.subscription = this.timer.subscribe(() => {
-      this.selectedEnv = selectedEnv;
-      this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
+      if(selectedEnv == undefined) {
+        selectedEnv = "blank";
+      }
+      if(selectedProject == undefined) {
+        selectedProject = "blank";
+      }
+      this.healthCheckService.getHealthChecksByFilter(selectedEnv, selectedProject)
       .then(healthChecks => this.healthChecks = healthChecks ) 
       .then(() => {
         for(let healthCheck of this.healthChecks){
@@ -65,12 +87,7 @@ export class HealthcheckDashboardComponent implements OnInit {
         }
         this.uniqueProjectNames = Array.from(new Set(this.uniqueProjectNames));
       });
-    });
-  }
-
-  getHealthCheckByHealthCheckId(healthCheckId: string): void {
-    this.healthCheckService.getHealthCheckById(healthCheckId)
-    .then(healthCheckById => this.healthCheckById = healthCheckById);
-  }
+   });
+ }
 
 }

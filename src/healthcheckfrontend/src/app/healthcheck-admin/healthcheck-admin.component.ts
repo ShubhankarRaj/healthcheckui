@@ -20,6 +20,7 @@ export class HealthcheckAdminComponent implements OnInit {
   editingHealthCheck: HealthCheck = new HealthCheck();
   envTypes: Array<string>;
   selectedEnv: string;
+  selectedProject:string;
 
   constructor(
     private healthCheckService: HealthcheckService,
@@ -29,19 +30,19 @@ export class HealthcheckAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.envTypes = this.utilService.envTypes;
-    this.getAllHealthCheck();
     this.getProjects();
   }
 
-  getHealthChecks(selectedEnv: string): void {
+  getHealthCheckByEnv(selectedEnv: string): void {
+    this.healthChecks = [];
     this.selectedEnv = selectedEnv;
-    this.healthCheckService.getHealthChecksForAnEnv(selectedEnv)
-    .then(healthChecks => this.filteredHealthCheck = healthChecks);
+    this.getHealthChecksByFilter(this.selectedEnv, this.selectedProject);
   }
 
-  getAllHealthCheck(): void {
-    this.healthCheckService.getAllHealthCheck()
-    .then(healthChecks => this.healthChecks = healthChecks);
+  getHealthCheckByProject(selectedProject: string):void {
+    this.healthChecks = [];
+    this.selectedProject = selectedProject;
+    this.getHealthChecksByFilter(this.selectedEnv, this.selectedProject);
   }
 
   addHealthcheck(newhcdetail: NgForm): void {
@@ -50,27 +51,30 @@ export class HealthcheckAdminComponent implements OnInit {
       newhcdetail.reset();
       this.newHealthCheck = new HealthCheck();
       this.healthChecks.unshift(addHealthcheck);
-      this.getHealthChecks(this.selectedEnv);
+      this.getHealthChecksByFilter(this.selectedEnv, this.selectedProject);
     });
 
   }
 
   deleteHealthcheckData(healthCheckId: string): void {
-    this.healthCheckService.deleteHealthcheckData(healthCheckId)
-    .then(() => {
-      this.getHealthChecks(this.selectedEnv);
-    });
+    if(confirm("Are you sure you want to delete the HealthCheck?")){
+      this.healthCheckService.deleteHealthcheckData(healthCheckId)
+      .then(() => {
+        this.getHealthChecksByFilter(this.selectedEnv, this.selectedProject);
+      });
+    }
   }
 
   updateHealthCheck(healthCheckData: HealthCheck): void {
     this.healthCheckService.updateHealthCheck(healthCheckData)
     .then(() => {
       this.clearEditing();
-      this.getHealthChecks(this.selectedEnv);
+      this.getHealthChecksByFilter(this.selectedEnv, this.selectedProject);
     });
   }
 
-  editHealthCheck(healthCheckData: HealthCheck): void {
+  editHealthCheck(healthCheckData: HealthCheck, el): void {
+    el.focus();
     this.editing = true;
     Object.assign(this.editingHealthCheck, healthCheckData);
   }
@@ -84,6 +88,17 @@ export class HealthcheckAdminComponent implements OnInit {
   getProjects(): void {
     this.projectService.getProjects()
     .then(projects => this.projects = projects );
+  }
+
+  getHealthChecksByFilter(selectedEnv:string, selectedProject:string) {
+    if(selectedEnv == undefined) {
+      selectedEnv = "blank";
+    }
+    if(selectedProject == undefined) {
+      selectedProject = "blank";
+    }
+    this.healthCheckService.getHealthChecksByFilter(selectedEnv, selectedProject)
+    .then(healthChecks => this.filteredHealthCheck = healthChecks );
   }
 }
 

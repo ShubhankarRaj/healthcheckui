@@ -18,7 +18,7 @@ export class ProjectAdminComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-  ) { }
+    ) { }
 
   ngOnInit(): void {
     this.getProjects();
@@ -26,16 +26,16 @@ export class ProjectAdminComponent implements OnInit {
 
   getProjects(): void {
     this.projectService.getProjects()
-      .then(projects => this.projects = projects );
+    .then(projects => this.projects = projects );
   }
 
   createProject(addProjectForm: NgForm): void {
     this.projectService.createProject(this.newProject)
-      .then(createProject => {
-        addProjectForm.reset();
-        this.newProject = new Project();
-        this.projects.unshift(createProject);
-      });
+    .then(createProject => {
+      addProjectForm.reset();
+      this.newProject = new Project();
+      this.projects.unshift(createProject);
+    });
   }
 
   deleteProject(projectId: string): void {
@@ -49,11 +49,11 @@ export class ProjectAdminComponent implements OnInit {
 
   updateProject(projectData: Project): void {
     this.projectService.updateProject(projectData)
-      .then(updatedProject => {
-        let existingProject = this.projects.find(project => project.projectId === updatedProject.projectId);
-        Object.assign(existingProject, updatedProject);
-        this.clearEditing();
-      });
+    .then(updatedProject => {
+      let existingProject = this.projects.find(project => project.projectId === updatedProject.projectId);
+      Object.assign(existingProject, updatedProject);
+      this.clearEditing();
+    });
   }
 
   editProject(projectData: Project): void {

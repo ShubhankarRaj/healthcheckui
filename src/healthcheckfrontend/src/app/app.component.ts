@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'E-WISE APP SERVER MONITOR';
+  title = 'Healthcheck Monitor';
    isClassVisible: boolean = false;
 }
