@@ -6,7 +6,7 @@
   </div>
   <div class="btn-group dropdown">
     <button type="button" class="btn light-bl-btn">Select Project</button>
-    <select class = "custom-select" name="projectName" id="projectName" [ngModel]="projectName" required (ngModelChange)="getHealthCheckByProject($event)">  
+    <select class = "custom-select" name="projectName" id="projectName" ngModel required (ngModelChange)="getHealthCheckByProject($event)">  
       <option *ngFor="let filterProjectName of filterProjectNames" [value]="filterProjectName.projectName">{{filterProjectName.projectName}}</option>     
     </select>
   </div>
