@@ -24,6 +24,8 @@ export class HealthcheckService {
   }
 
  addHealthcheck(healthcheckData: HealthCheck): Promise<HealthCheck> {
+    healthcheckData.emailIdOfCreatedBy = localStorage.getItem("userEmail");
+    healthcheckData.groupEmailId = localStorage.getItem("groupEmail");
     return this.http.post(this.baseUrl + '/hcheck/add', healthcheckData)
       .toPromise().then(response => response.json() as HealthCheck)
       .catch(this.handleError);

@@ -19,7 +19,7 @@ export class ProjectAdminComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private _service:LoginService,
+    private _service: LoginService,
     ) { }
 
   ngOnInit(): void {

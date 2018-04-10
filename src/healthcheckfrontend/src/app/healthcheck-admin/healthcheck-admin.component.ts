@@ -59,6 +59,8 @@ export class HealthcheckAdminComponent implements OnInit {
   }
 
   addHealthcheck(newhcdetail: NgForm): void {
+    newhcdetail.value.dailyNotificationStatus = this.visible;
+    console.log(newhcdetail.value);
     this.healthCheckService.addHealthcheck(newhcdetail.value)
     .then(addHealthcheck => {
       newhcdetail.reset();

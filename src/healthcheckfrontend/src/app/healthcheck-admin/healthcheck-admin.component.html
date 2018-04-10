@@ -40,27 +40,33 @@
           </div>
           <div class="form-row pb-2">
             <div class="col-3">
-              <input type="text" class="form-control" name ="healthCheckUrl" id="healthCheckUrl" ngModel placeholder="Healthcheck URL" [(ngModel)]="editingHealthCheck.healthCheckUrl">
+              <input type="text" class="form-control" name="healthCheckUrl" id="healthCheckUrl" ngModel placeholder="Healthcheck URL" [(ngModel)]="editingHealthCheck.healthCheckUrl">
             </div>
             <div class="col-3">
-              <input disabled type="text" class="form-control" name ="emailIdOfCreatedBy" id="emailIdOfCreatedBy" ngModel placeholder={{userEmail}} [(ngModel)]="editingHealthCheck.emailIdOfCreatedBy">
+              <input disabled type="text" class="form-control" name="emailIdOfCreatedBy" id="emailIdOfCreatedBy" ngModel placeholder={{userEmail}} [(ngModel)]="editingHealthCheck.emailIdOfCreatedBy">
+              <script type="text/javascript">
+                $('emailIdOfCreatedBy').inputfit();
+              </script>
             </div>
             <div class="col-3">
-              <input disabled type="text" class="form-control" name ="groupEmailId" id="groupEmailId" ngModel placeholder={{groupEmail}} [(ngModel)]="editingHealthCheck.groupEmailId">
+              <input disabled type="text" class="form-control" name="groupEmailId" id="groupEmailId" ngModel placeholder={{groupEmail}} [(ngModel)]="editingHealthCheck.groupEmailId">
+              <script type="text/javascript">
+                $('groupEmailId').inputfit();
+              </script>
             </div>
           </div>
           <div class="form-row pb-2">
             <div class="col-3">
                <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="customCheck1" (change)="getDateDropdown($event)">
-                <label class="custom-control-label" for="customCheck1">Disable daily notification email</label>
+                <input type="checkbox" class="custom-control-input" name="dailyNotificationStatus" id="dailyNotificationStatus" ngModel (change)="getDateDropdown($event)" [(ngModel)]="editingHealthCheck.dailyNotificationStatus">
+                <label class="custom-control-label" for="dailyNotificationStatus">Disable daily notification email</label>
               </div>
             </div>
             <div class="col-3" *ngIf="visible">
               Note: You can select maximum 7 days to disable notification
             </div>
             <div class="col-3" *ngIf="visible">
-             <select class = "custom-select" name="numberOfDays" id="number" [ngModel]="numberOfDays" required>  
+             <select class = "custom-select" name="countOfDaysForBlockingNotification" id="countOfDaysForBlockingNotification" [(ngModel)]="editingHealthCheck.countOfDaysForBlockingNotification" required>  
                 <option *ngFor="let numberOfDay of numberOfDays" [value]="numberOfDay">{{numberOfDay}}</option>
              </select>
             </div>
@@ -132,9 +138,9 @@
             <td>{{healthcheck.ipAddress}}</td>
             <td>{{healthcheck.applicationPort}}</td>
             <td>{{healthcheck.healthCheckPort}}</td>
-            <td><span class="todo-actions"><a href="javascript:void(0)" (click)="editHealthCheck(healthcheck, focusable)"><i class="material-icons edit">edit</i></a>
+            <td *ngIf="groupEmail == healthcheck.groupEmailId"><span class="todo-actions"><a href="javascript:void(0)" (click)="editHealthCheck(healthcheck, focusable)"><i class="material-icons edit">edit</i></a>
             </span></td>
-            <td><a a href="javascript:void(0)" (click)="deleteHealthcheckData(healthcheck.healthCheckId)"><i class="material-icons delete">delete</i></a></td>
+            <td *ngIf="groupEmail == healthcheck.groupEmailId"><a a href="javascript:void(0)" (click)="deleteHealthcheckData(healthcheck.healthCheckId)"><i class="material-icons delete">delete</i></a></td>
           </tr>
         </ng-container>
       </tbody>

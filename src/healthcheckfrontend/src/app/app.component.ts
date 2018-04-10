@@ -80,12 +80,12 @@ export class AppComponent {
       this.userGroupEmailId = null;
       this.isLoggedIn = false;
       this.isClassVisible = false;
-      localStorage.setItem("loggedinUser",'');
+      localStorage.clear();
       this._router.navigate(['dashboard']);
     }
 
-    checkCredentials():boolean {
-      if(localStorage.getItem("loggedinUser") != ''){
+    checkCredentials(): boolean {
+      if(localStorage.getItem("loggedinUser") && (localStorage.getItem("loggedinUser") != '')){
         return true;
       } else {
         return false;
