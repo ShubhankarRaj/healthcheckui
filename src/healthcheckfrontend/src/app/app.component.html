@@ -12,29 +12,33 @@
 				</li>
 				<li>
 					<a routerLink="/dashboard">HealthCheck Dashboard</a>
-				</li>
+				</li>				
 			</ul>
 		</div>
 		<div id="sidebar-wrapper" *ngIf="!isLoggedIn" >
 			<ul class="sidebar-nav">				
-				<li style="margin-top: 31%;">
+				<li style="margin-top: 31%; padding: 5%">
 					<input type="text" class="form-control" name ="userLoginId" id="userLoginId" ngModel placeholder="MMT ID" 
-					[(ngModel)]="loggingUser.mmtId">
+					[(ngModel)]="logingUser.mmtId">
 				</li>
-				<li>
+				<li style="padding: 5%;">
 					<input type="text" class="form-control" name ="userLoginId" id="userLoginId" ngModel placeholder="PASSWORD" 
-					[(ngModel)]="loggingUser.password">
+					[(ngModel)]="logingUser.password">
 				</li>
-
 				<li margin-bottom:50px>
-					<button class="btn btn-blue btn-info" (ngSubmit)="loginUser(loggingUser)">LOGIN</button>
+					<button class="btn btn-blue btn-info" (click)="loginUser(logingUser)">LOGIN</button>
 					<button class="btn btn-blue btn-info" (click)="isClassVisible = !isClassVisible;">REGISTER</button>
 				</li>
 			</ul>
 		</div>
 		<div class="card-header">
-		<h1 class="header-color" text-align="center"><button class="float btn btn-info" (click)="isClassVisible = !isClassVisible;">MENU</button>{{title}}</h1>
-	</div>
+		<h1 class="header-color" text-align="center"><button class="float btn btn-info" (click)="isClassVisible = !isClassVisible;">MENU</button>{{title}}
+			<div style="float: right;" *ngIf="isLoggedIn">
+				<h6>mmt6540&nbsp;</h6>
+				<button class="float btn btn-info" style="position: relative; float: right;">LOGOUT</button>
+			</div>
+		</h1>
+		</div>
 		<div id="page-content-wrapper">
 
 			<div class="container-fluid">

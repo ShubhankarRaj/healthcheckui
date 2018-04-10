@@ -14,7 +14,12 @@ export class AppComponent {
   title = 'QA-STAGING ENV HEALTHCHECK';
   isClassVisible: boolean = false;
   isLoggedIn: boolean = false;
-  loggingUser: LoginInfo = new LoginInfo();
+  logingUser: LoginInfo = new LoginInfo();
+  logginSuccessful: boolean = true;
+  userInfo: UserInfo = new UserInfo();
+  userId: string;
+  userEmailId: string;
+  userGroupEmailId: string;
 
   constructor(
   	private loginService: LoginService,
@@ -22,6 +27,15 @@ export class AppComponent {
   	){  }
 
   loginUser(loginData: LoginInfo): void {
-
+    this.loginService.loginUser(loginData)
+    .then((response) => {
+      
+      console.log(response);
+      this.userId = response.mmtId;
+      this.userEmailId = response.mmtEMailId;
+      this.userGroupEmailId = response.mmtGroupEMailId;
+      this.isLoggedIn = true;
+      this.isClassVisible = false;
+    })
+    }
   }
-}
