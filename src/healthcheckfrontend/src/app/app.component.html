@@ -1,5 +1,5 @@
 	<div id="wrapper" [ngClass]="{'toggled': isClassVisible }">
-		<div id="sidebar-wrapper" *ngIf="isLoggedIn">
+		<div id="sidebar-wrapper" *ngIf="isLoggedIn && registeringUser">
 			<ul class="sidebar-nav">
 				<li margin-bottom:50px>
 					<button class="btn btn-blue btn-info" (click)="isClassVisible = !isClassVisible;">CLOSE</button>
@@ -15,27 +15,51 @@
 				</li>				
 			</ul>
 		</div>
-		<div id="sidebar-wrapper" *ngIf="!isLoggedIn" >
+		<div id="sidebar-wrapper" *ngIf="!isLoggedIn && registeringUser">
+			<ul class="sidebar-nav">				
+				<li style="margin-top: 31%; padding: 5%">
+					<input type="text" class="form-control" name ="userRegId" id="userRegId" ngModel placeholder="MMT ID" 
+					[(ngModel)]="userInfo.mmtId">
+				</li>
+				<li style="padding: 5%;">
+					<input type="text" class="form-control" name ="userRegPassword" id="userRegPassword" ngModel placeholder="PASSWORD" 
+					[(ngModel)]="userInfo.mmtPassword">
+				</li>
+				<li style="padding: 5%;">
+					<input type="text" class="form-control" name ="userRegEmail" id="userRegEmail" ngModel placeholder="MMT EMAIL ID" 
+					[(ngModel)]="userInfo.mmtEMailId">
+				</li>
+				<li style="padding: 5%;">
+					<input type="text" class="form-control" name ="userRegPassword" id="userRegPassword" ngModel placeholder="PROJECT EMAIL ID" 
+					[(ngModel)]="userInfo.mmtGroupEMailId">
+				</li>
+				<div style="padding: 5%;">
+					<button class="btn btn-blue btn-info" (click)="registerUser(userInfo)">REGISTER USER</button>
+					<a href="#" (click)="loadLoginForm()"> Cancel </a>
+				</div>
+			</ul>	
+		</div>
+		<div id="sidebar-wrapper" *ngIf="!isLoggedIn && !registeringUser" >
 			<ul class="sidebar-nav">				
 				<li style="margin-top: 31%; padding: 5%">
 					<input type="text" class="form-control" name ="userLoginId" id="userLoginId" ngModel placeholder="MMT ID" 
-					[(ngModel)]="logingUser.mmtId">
+					[(ngModel)]="userTryingToLogin.mmtId">
 				</li>
 				<li style="padding: 5%;">
-					<input type="text" class="form-control" name ="userLoginId" id="userLoginId" ngModel placeholder="PASSWORD" 
-					[(ngModel)]="logingUser.password">
+					<input type="text" class="form-control" name ="userLoginPassword" id="userLoginPassword" ngModel placeholder="PASSWORD" 
+					[(ngModel)]="userTryingToLogin.password">
 				</li>
-				<li margin-bottom:50px>
-					<button class="btn btn-blue btn-info" (click)="loginUser(logingUser)">LOGIN</button>
-					<button class="btn btn-blue btn-info" (click)="isClassVisible = !isClassVisible;">REGISTER</button>
-				</li>
+				<div style="padding: 5%;">
+					<button class="btn btn-blue btn-info" (click)="loginUser(userTryingToLogin)">LOGIN</button>
+					<a href="#" (click)="loadRegisterForm()"> Register </a>
+				</div>
 			</ul>
 		</div>
 		<div class="card-header">
 		<h1 class="header-color" text-align="center"><button class="float btn btn-info" (click)="isClassVisible = !isClassVisible;">MENU</button>{{title}}
 			<div style="float: right;" *ngIf="isLoggedIn">
 				<h6>mmt6540&nbsp;</h6>
-				<button class="float btn btn-info" style="position: relative; float: right;">LOGOUT</button>
+				<button class="float btn btn-info" style="position: relative; float: right;" (click)="logoutUser()">LOGOUT</button>
 			</div>
 		</h1>
 		</div>

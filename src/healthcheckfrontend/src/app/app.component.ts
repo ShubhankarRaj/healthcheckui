@@ -14,12 +14,13 @@ export class AppComponent {
   title = 'QA-STAGING ENV HEALTHCHECK';
   isClassVisible: boolean = false;
   isLoggedIn: boolean = false;
-  logingUser: LoginInfo = new LoginInfo();
+  userTryingToLogin: LoginInfo = new LoginInfo();
   logginSuccessful: boolean = true;
   userInfo: UserInfo = new UserInfo();
   userId: string;
   userEmailId: string;
   userGroupEmailId: string;
+  registeringUser: boolean = false;
 
   constructor(
   	private loginService: LoginService,
@@ -28,14 +29,41 @@ export class AppComponent {
 
   loginUser(loginData: LoginInfo): void {
     this.loginService.loginUser(loginData)
-    .then((response) => {
-      
-      console.log(response);
-      this.userId = response.mmtId;
-      this.userEmailId = response.mmtEMailId;
-      this.userGroupEmailId = response.mmtGroupEMailId;
+    .then((loginResponse) => {
+      this.userId = loginResponse.mmtId;
+      this.userEmailId = loginResponse.mmtEMailId;
+      this.userGroupEmailId = loginResponse.mmtGroupEMailId;
       this.isLoggedIn = true;
       this.isClassVisible = false;
     })
+    }
+
+    loadLoginForm(): void {
+      this.isLoggedIn = false;
+      this.registeringUser = false;
+    }
+
+    loadRegisterForm(): void {
+      this.registeringUser = true;
+    }
+
+    registerUser(userData: UserInfo): void {
+      console.log(userData);
+      this.regsiterService.registerNewUser(userData)
+      .then((registrationResponse) => {
+        this.userId = registrationResponse.mmtId;
+      this.userEmailId = registrationResponse.mmtEMailId;
+      this.userGroupEmailId = registrationResponse.mmtGroupEMailId;
+      this.isLoggedIn = true;
+      this.isClassVisible = false;
+      })
+    }
+
+    logoutUser(): void {
+      this.userId = null;
+      this.userEmailId = null;
+      this.userGroupEmailId = null;
+      this.isLoggedIn = false;
+      this.isClassVisible = false;
     }
   }

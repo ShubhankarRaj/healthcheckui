@@ -13,7 +13,6 @@ export class LoginService {
   constructor(private http: Http) { }
 
   loginUser(loginData: LoginInfo): Promise<UserInfo> {
-  	console.log(this.baseUrl + '/user/login');
   	return this.http.post(this.baseUrl + '/user/login', loginData)
 	  .toPromise().then(response => response.json() as UserInfo)
 	  .catch(this.handleLoginError);
