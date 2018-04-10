@@ -19,8 +19,10 @@ export class HealthcheckAdminComponent implements OnInit {
   editing: boolean = false;
   editingHealthCheck: HealthCheck = new HealthCheck();
   envTypes: Array<string>;
+  numberOfDays: Array<number>;
   selectedEnv: string;
   selectedProject:string;
+  visible: boolean;  
 
   constructor(
     private healthCheckService: HealthcheckService,
@@ -30,7 +32,10 @@ export class HealthcheckAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.envTypes = this.utilService.envTypes;
+    this.numberOfDays = this.utilService.numberOfDays;
+    this.visible = false;
     this.getProjects();
+
   }
 
   getHealthCheckByEnv(selectedEnv: string): void {
@@ -99,6 +104,15 @@ export class HealthcheckAdminComponent implements OnInit {
     }
     this.healthCheckService.getHealthChecksByFilter(selectedEnv, selectedProject)
     .then(healthChecks => this.filteredHealthCheck = healthChecks );
+  }
+
+  getDateDropdown($event): void {
+    if($event.target.checked == true) {
+      this.visible = true;
+    } else {
+      this.visible = false;
+    }
+    
   }
 }
 

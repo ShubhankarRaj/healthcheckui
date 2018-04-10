@@ -1,125 +1,141 @@
-<div class="container-fluid">
-  <div class="card">
-    <div class="card-header custom-card font-weight-bold">
-      Add New Healthcheck Information
-    </div>
-    <div class="card-body">
-      <form #newhcdetail="ngForm" (ngSubmit)="addHealthcheck(newhcdetail)">
-        <div class="form-row pb-2">
-          <div class="col-3">
-            <div class="btn-group dropdown">
-              <button type="button" class="btn light-bl-btn">Select Project</button>
-              <select class = "custom-select" name="projectName" id="projectId" 
-              [(ngModel)]="editingHealthCheck.projectName" required >
-              <option *ngFor="let projectName of projects" [value]="projectName.projectName">{{projectName.projectName}}</option>
-            </select>
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header custom-card font-weight-bold">
+          Add New Healthcheck Information
+        </div>
+        <div class="card-body">
+          <form #newhcdetail="ngForm" (ngSubmit)="addHealthcheck(newhcdetail)">
+            <div class="form-row pb-2">
+              <div class="col-3">
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn light-bl-btn">Select Project</button>
+                  <select class = "custom-select" name="projectName" id="projectId" 
+                  [(ngModel)]="editingHealthCheck.projectName" required >
+                  <option *ngFor="let projectName of projects" [value]="projectName.projectName">{{projectName.projectName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="btn-group dropdown">
+                <button type="button" class="btn light-bl-btn">Select Environment</button>
+                <select class = "custom-select" id="envId" name="envName" [(ngModel)]="editingHealthCheck.envName" required >
+                  <option *ngFor="let envName of envTypes" [value]="envName">{{envName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-3">
+              <input #focusable type="text" class="form-control" id="componentName" name="componentName" ngModel placeholder="Component Name" [(ngModel)]="editingHealthCheck.componentName">
+            </div>
           </div>
-        </div>
-        <div class="col-3">
-          <div class="btn-group dropdown">
-            <button type="button" class="btn light-bl-btn">Select Environment</button>
-            <select class = "custom-select" id="envId" name="envName" [(ngModel)]="editingHealthCheck.envName" required >
-              <option *ngFor="let envName of envTypes" [value]="envName">{{envName}}</option>
-            </select>
+          <div class="form-row pb-2">
+            <div class="col-3">
+              <input name="ipAddress" type="text" class="form-control" id="ipAddress" ngModel placeholder="IP Address" [(ngModel)]="editingHealthCheck.ipAddress">
+            </div>
+            <div class="col-3">
+              <input type="text" class="form-control" name="applicationPort" id="applicationPort" ngModel placeholder="Application Port" [(ngModel)]="editingHealthCheck.applicationPort">
+            </div>
+            <div class="col-3">
+              <input type="text" class="form-control" name="healthCheckPort" id="healthCheckPort" ngModel placeholder="HealthCheck Port" [(ngModel)]="editingHealthCheck.healthCheckPort">
+            </div>      
           </div>
-        </div>
-        <div class="col-3">
-          <input #focusable type="text" class="form-control" id="componentName" name="componentName" ngModel placeholder="Component Name" [(ngModel)]="editingHealthCheck.componentName">
-        </div>
-      </div>
-      <div class="form-row pb-2">
-        <div class="col-3">
-          <input name="ipAddress" type="text" class="form-control" id="ipAddress" ngModel placeholder="IP Address" [(ngModel)]="editingHealthCheck.ipAddress">
-        </div>
-        <div class="col-3">
-          <input type="text" class="form-control" name="applicationPort" id="applicationPort" ngModel placeholder="Application Port" [(ngModel)]="editingHealthCheck.applicationPort">
-        </div>
-        <div class="col-3">
-          <input type="text" class="form-control" name="healthCheckPort" id="healthCheckPort" ngModel placeholder="HealthCheck Port" [(ngModel)]="editingHealthCheck.healthCheckPort">
-        </div>      
-      </div>
-      <div class="form-row pb-2">
-        <div class="col-3">
-          <input type="text" class="form-control" name ="healthCheckUrl" id="healthCheckUrl" ngModel placeholder="Healthcheck URL" [(ngModel)]="editingHealthCheck.healthCheckUrl">
-        </div>
-        <div class="col-3">
-          <input type="text" class="form-control" name ="emailIdOfCreatedBy" id="emailIdOfCreatedBy" ngModel placeholder="Created by Email" [(ngModel)]="editingHealthCheck.emailIdOfCreatedBy">
-        </div>
-        <div class="col-3">
-          <input type="text" class="form-control" name ="groupEmailId" id="groupEmailId" ngModel placeholder="Created by Group" [(ngModel)]="editingHealthCheck.groupEmailId">
-        </div>
-      </div>
-      <div class="form-row pb-2">
-        <div class="col-3">
+          <div class="form-row pb-2">
+            <div class="col-3">
+              <input type="text" class="form-control" name ="healthCheckUrl" id="healthCheckUrl" ngModel placeholder="Healthcheck URL" [(ngModel)]="editingHealthCheck.healthCheckUrl">
+            </div>
+            <div class="col-3">
+              <input type="text" class="form-control" name ="emailIdOfCreatedBy" id="emailIdOfCreatedBy" ngModel placeholder="Created by Email" [(ngModel)]="editingHealthCheck.emailIdOfCreatedBy">
+            </div>
+            <div class="col-3">
+              <input type="text" class="form-control" name ="groupEmailId" id="groupEmailId" ngModel placeholder="Created by Group" [(ngModel)]="editingHealthCheck.groupEmailId">
+            </div>
+          </div>
+          <div class="form-row pb-2">
+            <div class="col-3">
+               <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck1" (change)="getDateDropdown($event)">
+                <label class="custom-control-label" for="customCheck1">Disable daily notification email</label>
+              </div>
+            </div>
+            <div class="col-3" *ngIf="visible">
+              Note: You can select maximum 7 days to disable notification
+            </div>
+            <div class="col-3" *ngIf="visible">
+             <select class = "custom-select" name="numberOfDays" id="number" [ngModel]="numberOfDays" required>  
+                <option *ngFor="let numberOfDay of numberOfDays" [value]="numberOfDay">{{numberOfDay}}</option>
+             </select>
+            </div>
+          </div>
+              <div class="form-row pb-2">
+            <div class="col-3">
+              <button
+              class="btn btn-primary light-bl-btn listing-button"
+              type="submit"
+              ng-show="addListing"
+              *ngIf="!editing">Add
+            </button>
+            <button
+            class="btn btn-primary light-bl-btn listing-button"
+            type="button"
+            (click)="updateHealthCheck(editingHealthCheck)"
+            ng-show="addListing"
+            *ngIf="editing">Save
+          </button>
           <button
           class="btn btn-primary light-bl-btn listing-button"
-          type="submit"
-          ng-show="addListing"
-          *ngIf="!editing">Add
+          type="button"
+          (click)="clearEditing()"
+          ng-show="addListing">
+          Clear
         </button>
-        <button
-        class="btn btn-primary light-bl-btn listing-button"
-        type="button"
-        (click)="updateHealthCheck(editingHealthCheck)"
-        ng-show="addListing"
-        *ngIf="editing">Save
-      </button>
-      <button
-      class="btn btn-primary light-bl-btn listing-button"
-      type="button"
-      (click)="clearEditing()"
-      ng-show="addListing">
-      Clear
-    </button>
-  </div>
-</div>
-</form>
-</div>
-</div>
+      </div>
+    </div>
+    </form>
+    </div>
+    </div>
 
-<div class="btn-group dropdown pt-5 pb-3">
-  <button type="button" class="btn light-bl-btn">Select Application Environment</button>
-  <select class = "custom-select" name="envType" id="envId" [ngModel]="selectedEnv" required (ngModelChange)="getHealthCheckByEnv($event)">  
-    <option *ngFor="let envType of envTypes" [value]="envType">{{envType}}</option>
-  </select>
-</div>
-<div class="btn-group dropdown pt-5 pb-3">
-  <button type="button" class="btn light-bl-btn">Select Project</button>
-  <select class = "custom-select" name="projectName" id="projectName" ngModel required (ngModelChange)="getHealthCheckByProject($event)">  
-    <option *ngFor="let filterProjectName of projects" [value]="filterProjectName.projectName">{{filterProjectName.projectName}}</option>     
-  </select>
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr class="table-head">
-      <th>Project Name</th>
-      <th>Enviornment Name</th>
-      <th>Component Name</th>
-      <th>IP Address</th>
-      <th>Application Port</th>
-      <th>Healthcheck Port</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngIf="filteredHealthCheck.length == 0">
-      <tr scope="row">
-        <td>NO DATA FOUND</td>
-      </tr>
-    </ng-container>
-    <ng-container>
-      <tr scope="row" *ngFor="let healthcheck of filteredHealthCheck" >
-        <td>{{healthcheck.projectName}}</td>
-        <td>{{healthcheck.envName}}</td>
-        <td>{{healthcheck.componentName}}</td>
-        <td>{{healthcheck.ipAddress}}</td>
-        <td>{{healthcheck.applicationPort}}</td>
-        <td>{{healthcheck.healthCheckPort}}</td>
-        <td><span class="todo-actions"><a href="javascript:void(0)" (click)="editHealthCheck(healthcheck, focusable)"><i class="material-icons edit">edit</i></a>
-        </span></td>
-        <td><a a href="javascript:void(0)" (click)="deleteHealthcheckData(healthcheck.healthCheckId)"><i class="material-icons delete">delete</i></a></td>
-      </tr>
-    </ng-container>
-  </tbody>
-</table>
+    <div class="btn-group dropdown pt-5 pb-3">
+      <button type="button" class="btn light-bl-btn">Select Application Environment</button>
+      <select class = "custom-select" name="envType" id="envId" [ngModel]="selectedEnv" required (ngModelChange)="getHealthCheckByEnv($event)">  
+        <option *ngFor="let envType of envTypes" [value]="envType">{{envType}}</option>
+      </select>
+    </div>
+    <div class="btn-group dropdown pt-5 pb-3">
+      <button type="button" class="btn light-bl-btn">Select Project</button>
+      <select class = "custom-select" name="projectName" id="projectName" ngModel required (ngModelChange)="getHealthCheckByProject($event)">  
+        <option *ngFor="let filterProjectName of projects" [value]="filterProjectName.projectName">{{filterProjectName.projectName}}</option>     
+      </select>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr class="table-head">
+          <th>Project Name</th>
+          <th>Enviornment Name</th>
+          <th>Component Name</th>
+          <th>IP Address</th>
+          <th>Application Port</th>
+          <th>Healthcheck Port</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="filteredHealthCheck.length == 0">
+          <tr scope="row">
+            <td>NO DATA FOUND</td>
+          </tr>
+        </ng-container>
+        <ng-container>
+          <tr scope="row" *ngFor="let healthcheck of filteredHealthCheck" >
+            <td>{{healthcheck.projectName}}</td>
+            <td>{{healthcheck.envName}}</td>
+            <td>{{healthcheck.componentName}}</td>
+            <td>{{healthcheck.ipAddress}}</td>
+            <td>{{healthcheck.applicationPort}}</td>
+            <td>{{healthcheck.healthCheckPort}}</td>
+            <td><span class="todo-actions"><a href="javascript:void(0)" (click)="editHealthCheck(healthcheck, focusable)"><i class="material-icons edit">edit</i></a>
+            </span></td>
+            <td><a a href="javascript:void(0)" (click)="deleteHealthcheckData(healthcheck.healthCheckId)"><i class="material-icons delete">delete</i></a></td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
