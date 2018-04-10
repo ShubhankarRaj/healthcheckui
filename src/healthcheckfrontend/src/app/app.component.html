@@ -1,5 +1,5 @@
 	<div id="wrapper" [ngClass]="{'toggled': isClassVisible }">
-		<div id="sidebar-wrapper" *ngIf="isLoggedIn && registeringUser">
+		<div id="sidebar-wrapper" *ngIf="isLoggedIn">
 			<ul class="sidebar-nav">
 				<li margin-bottom:50px>
 					<button class="btn btn-blue btn-info" (click)="isClassVisible = !isClassVisible;">CLOSE</button>

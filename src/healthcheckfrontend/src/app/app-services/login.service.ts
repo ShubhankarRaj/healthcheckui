@@ -4,13 +4,17 @@ import { UserInfo } from '../userinfo';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class LoginService {
 	private baseUrl = environment.BASEURL;
   
 
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+     private _router: Router
+    ) { }
 
   loginUser(loginData: LoginInfo): Promise<UserInfo> {
   	return this.http.post(this.baseUrl + '/user/login', loginData)
@@ -23,4 +27,11 @@ export class LoginService {
     return Promise.reject(error.message || error);
   }
 
+checkCredentials(){
+    if(localStorage.getItem("loggedinUser") != '') {
+      return true;
+    } else {
+       this._router.navigate(['dashboard']);
+    }
+  }
 }

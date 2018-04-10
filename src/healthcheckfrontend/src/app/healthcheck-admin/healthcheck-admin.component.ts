@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import { HealthcheckService } from '../app-services/healthcheck.service';
 import { UtilService } from '../app-services/util.service';
 import { ProjectService } from '../app-services/project.service';
+import { LoginService } from '../app-services/login.service'; 
+
 
 @Component({
   selector: 'app-healthcheck-admin',
@@ -23,18 +25,24 @@ export class HealthcheckAdminComponent implements OnInit {
   selectedEnv: string;
   selectedProject:string;
   visible: boolean;  
+  userEmail: string;
+  groupEmail: string;
 
   constructor(
     private healthCheckService: HealthcheckService,
+    private _service:LoginService,
     private utilService: UtilService,
     private projectService: ProjectService,
     ) {  }
 
   ngOnInit(): void {
+    this._service.checkCredentials();
     this.envTypes = this.utilService.envTypes;
     this.numberOfDays = this.utilService.numberOfDays;
     this.visible = false;
     this.getProjects();
+    this.userEmail = localStorage.getItem("userEmail");
+    this.groupEmail = localStorage.getItem("groupEmail");
 
   }
 

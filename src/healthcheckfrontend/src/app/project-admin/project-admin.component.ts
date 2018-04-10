@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Project } from '../project';
 import { NgForm } from '@angular/forms';
 import { ProjectService } from '../app-services/project.service';
+import { LoginService } from '../app-services/login.service';
 
 @Component({
   selector: 'app-project-admin',
@@ -18,9 +19,11 @@ export class ProjectAdminComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
+    private _service:LoginService,
     ) { }
 
   ngOnInit(): void {
+    this._service.checkCredentials();
     this.getProjects();
   }
 

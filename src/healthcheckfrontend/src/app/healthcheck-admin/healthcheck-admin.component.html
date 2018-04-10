@@ -43,10 +43,10 @@
               <input type="text" class="form-control" name ="healthCheckUrl" id="healthCheckUrl" ngModel placeholder="Healthcheck URL" [(ngModel)]="editingHealthCheck.healthCheckUrl">
             </div>
             <div class="col-3">
-              <input type="text" class="form-control" name ="emailIdOfCreatedBy" id="emailIdOfCreatedBy" ngModel placeholder="Created by Email" [(ngModel)]="editingHealthCheck.emailIdOfCreatedBy">
+              <input disabled type="text" class="form-control" name ="emailIdOfCreatedBy" id="emailIdOfCreatedBy" ngModel placeholder={{userEmail}} [(ngModel)]="editingHealthCheck.emailIdOfCreatedBy">
             </div>
             <div class="col-3">
-              <input type="text" class="form-control" name ="groupEmailId" id="groupEmailId" ngModel placeholder="Created by Group" [(ngModel)]="editingHealthCheck.groupEmailId">
+              <input disabled type="text" class="form-control" name ="groupEmailId" id="groupEmailId" ngModel placeholder={{groupEmail}} [(ngModel)]="editingHealthCheck.groupEmailId">
             </div>
           </div>
           <div class="form-row pb-2">

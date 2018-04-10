@@ -4,6 +4,7 @@ import { UserInfo } from './userinfo';
 
 import { LoginService } from './app-services/login.service';
 import { RegisterService } from './app-services/register.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -25,9 +26,20 @@ export class AppComponent {
   constructor(
   	private loginService: LoginService,
   	private regsiterService: RegisterService,
+    private _router: Router
   	){  }
 
   loginUser(loginData: LoginInfo): void {
+
+      // this.userId = "MMT6540";
+      // this.userEmailId = "test@gmail.com";
+      // this.userGroupEmailId = "group@gmail.com";
+      // this.isLoggedIn = true;
+      // this.isClassVisible = false;
+      // localStorage.setItem("loggedinUser", this.userId);
+      // localStorage.setItem("userEmail",this.userEmailId);
+      // localStorage.setItem("groupEmail",this.userGroupEmailId );
+
     this.loginService.loginUser(loginData)
     .then((loginResponse) => {
       this.userId = loginResponse.mmtId;
@@ -35,6 +47,9 @@ export class AppComponent {
       this.userGroupEmailId = loginResponse.mmtGroupEMailId;
       this.isLoggedIn = true;
       this.isClassVisible = false;
+      localStorage.setItem("loggedinUser", this.userId);
+      localStorage.setItem("userEmail",this.userEmailId);
+      localStorage.setItem("groupEmail",this.userGroupEmailId );
     })
     }
 
@@ -65,5 +80,15 @@ export class AppComponent {
       this.userGroupEmailId = null;
       this.isLoggedIn = false;
       this.isClassVisible = false;
+      localStorage.setItem("loggedinUser",'');
+      this._router.navigate(['dashboard']);
+    }
+
+    checkCredentials():boolean {
+      if(localStorage.getItem("loggedinUser") != ''){
+        return true;
+      } else {
+        return false;
+      }
     }
   }
