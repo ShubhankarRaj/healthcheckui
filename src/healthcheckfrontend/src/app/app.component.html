@@ -1,6 +1,5 @@
 	<div id="wrapper" [ngClass]="{'toggled': isClassVisible }">
-		<div id="sidebar-wrapper">
-
+		<div id="sidebar-wrapper" *ngIf="isLoggedIn">
 			<ul class="sidebar-nav">
 				<li margin-bottom:50px>
 					<button class="btn btn-blue btn-info" (click)="isClassVisible = !isClassVisible;">CLOSE</button>
@@ -13,6 +12,23 @@
 				</li>
 				<li>
 					<a routerLink="/dashboard">HealthCheck Dashboard</a>
+				</li>
+			</ul>
+		</div>
+		<div id="sidebar-wrapper" *ngIf="!isLoggedIn" >
+			<ul class="sidebar-nav">				
+				<li style="margin-top: 31%;">
+					<input type="text" class="form-control" name ="userLoginId" id="userLoginId" ngModel placeholder="MMT ID" 
+					[(ngModel)]="loggingUser.mmtId">
+				</li>
+				<li>
+					<input type="text" class="form-control" name ="userLoginId" id="userLoginId" ngModel placeholder="PASSWORD" 
+					[(ngModel)]="loggingUser.password">
+				</li>
+
+				<li margin-bottom:50px>
+					<button class="btn btn-blue btn-info" (ngSubmit)="loginUser(loggingUser)">LOGIN</button>
+					<button class="btn btn-blue btn-info" (click)="isClassVisible = !isClassVisible;">REGISTER</button>
 				</li>
 			</ul>
 		</div>

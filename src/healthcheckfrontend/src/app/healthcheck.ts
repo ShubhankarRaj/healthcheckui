@@ -8,5 +8,8 @@ export class HealthCheck {
   healthCheckPort: string;
   healthCheckUrl: string;
   serverStatus: string;
-  createdBy: string;
+  dailyNotificationStatus: string;
+  countOfDaysForBlockingNotification: string;
+  emailIdOfCreatedBy: string;
+  groupEmailId: string;
 }
