@@ -27,11 +27,24 @@ export class LoginService {
     return Promise.reject(error.message || error);
   }
 
-checkCredentials(){
+/*checkCredentials(){
     if(localStorage.getItem("loggedinUser") != '') {
       return true;
     } else {
        this._router.navigate(['dashboard']);
     }
-  }
+  }*/
+
+  checkCredentials(): boolean {
+      console.log("Printing the Local Storage before Condition");
+      console.log(localStorage.getItem("loggedinUser"));
+      if(localStorage.getItem("loggedinUser") && (localStorage.getItem("loggedinUser") != '')){
+        console.log("Printing the Local Storage inside Condition");
+        console.log(localStorage.getItem("loggedinUser"));
+        return true;
+      } else {
+        this._router.navigate(['dashboard']);
+        return false;
+      }
+    }
 }

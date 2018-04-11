@@ -83,12 +83,4 @@ export class AppComponent {
       localStorage.clear();
       this._router.navigate(['dashboard']);
     }
-
-    checkCredentials(): boolean {
-      if(localStorage.getItem("loggedinUser") && (localStorage.getItem("loggedinUser") != '')){
-        return true;
-      } else {
-        return false;
-      }
-    }
   }

@@ -9,6 +9,7 @@ import { Headers, Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { ISubscription } from "rxjs/Subscription";
 import { ProjectService } from "../app-services/project.service";
+import { LoginService } from '../app-services/login.service'; 
 
 @Component({
   selector: 'app-healthcheck-dashboard',
@@ -36,11 +37,13 @@ export class HealthcheckDashboardComponent implements OnInit {
   constructor(
   	private healthCheckService: HealthcheckService,
     private utilService: UtilService,
+    private _service:LoginService,
     private projectService: ProjectService,
     private http: Http) { 
   }
 
   ngOnInit() {
+    this._service.checkCredentials();
     this.envTypes = this.utilService.envTypes;
     this.projectService.getProjects()
     .then(projects => this.filterProjectNames = projects );

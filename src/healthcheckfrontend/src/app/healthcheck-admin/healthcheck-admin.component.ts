@@ -28,6 +28,7 @@ export class HealthcheckAdminComponent implements OnInit {
   userEmail: string;
   groupEmail: string;
 
+
   constructor(
     private healthCheckService: HealthcheckService,
     private _service:LoginService,

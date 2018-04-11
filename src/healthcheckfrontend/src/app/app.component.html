@@ -22,7 +22,7 @@
 					[(ngModel)]="userInfo.mmtId">
 				</li>
 				<li style="padding: 5%;">
-					<input type="text" class="form-control" name ="userRegPassword" id="userRegPassword" ngModel placeholder="PASSWORD" 
+					<input type="password" class="form-control" name ="userRegPassword" id="userRegPassword" ngModel placeholder="PASSWORD" 
 					[(ngModel)]="userInfo.mmtPassword">
 				</li>
 				<li style="padding: 5%;">
@@ -30,8 +30,11 @@
 					[(ngModel)]="userInfo.mmtEMailId">
 				</li>
 				<li style="padding: 5%;">
-					<input type="text" class="form-control" name ="userRegPassword" id="userRegPassword" ngModel placeholder="PROJECT EMAIL ID" 
+					<input type="text" class="form-control" name ="userGroupEMail" id="userGroupEMail" ngModel placeholder="Proj Email(Case Sensitive)" 
 					[(ngModel)]="userInfo.mmtGroupEMailId">
+					<script type="text/javascript">
+                		$('userGroupEMail').inputfit();
+              		</script>
 				</li>
 				<div style="padding: 5%;">
 					<button class="btn btn-blue btn-info" (click)="registerUser(userInfo)">REGISTER USER</button>
@@ -46,7 +49,7 @@
 					[(ngModel)]="userTryingToLogin.mmtId">
 				</li>
 				<li style="padding: 5%;">
-					<input type="text" class="form-control" name ="userLoginPassword" id="userLoginPassword" ngModel placeholder="PASSWORD" 
+					<input type="password" class="form-control" name ="userLoginPassword" id="userLoginPassword" ngModel placeholder="PASSWORD" 
 					[(ngModel)]="userTryingToLogin.password">
 				</li>
 				<div style="padding: 5%;">
@@ -58,7 +61,7 @@
 		<div class="card-header">
 		<h1 class="header-color" text-align="center"><button class="float btn btn-info" (click)="isClassVisible = !isClassVisible;">MENU</button>{{title}}
 			<div style="float: right;" *ngIf="isLoggedIn">
-				<h6>mmt6540&nbsp;</h6>
+				<h6>{{userId}}&nbsp;</h6>
 				<button class="float btn btn-info" style="position: relative; float: right;" (click)="logoutUser()">LOGOUT</button>
 			</div>
 		</h1>
