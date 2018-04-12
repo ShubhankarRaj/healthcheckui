@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 import { UserInfo } from '../userinfo';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
+import { AlertsService } from './alerts.service';
 
 @Injectable()
 export class RegisterService {

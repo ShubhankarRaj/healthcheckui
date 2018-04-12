@@ -12,10 +12,26 @@
 				</li>
 				<li>
 					<a routerLink="/dashboard">HealthCheck Dashboard</a>
-				</li>				
+				</li>
+				<div></div>
+				<!-- <li>
+					<a class="word" href="https://drive.google.com/open?id=1VcD5MvQk7OP6jgGHNKFxBdoGnSp90v6k&embedded=true">Quick Start</a>
+					<script type="text/javascript">
+						$(document).ready(function() {
+						 $(".word").fancybox({
+						  'width': 600, // or whatever
+						  'height': 320,
+						  'type': 'iframe'
+						 });
+						});
+					</script>
+				</li> -->
 			</ul>
 		</div>
 		<div id="sidebar-wrapper" *ngIf="!isLoggedIn && registeringUser">
+			<div *ngIf="regErrorMessage" class="alert alert-info">
+				{{regErrorMessage}}
+			</div>
 			<ul class="sidebar-nav">				
 				<li style="margin-top: 31%; padding: 5%">
 					<input type="text" class="form-control" name ="userRegId" id="userRegId" ngModel placeholder="MMT ID *"  required [(ngModel)]="userInfo.mmtId">
@@ -26,11 +42,13 @@
 				<li style="padding: 5%;">
 					<input type="text" class="form-control" name ="userRegEmail" id="userRegEmail" ngModel placeholder="MMT EMAIL ID *" required [(ngModel)]="userInfo.mmtEMailId">
 				</li>
-				<li style="padding: 5%;">
-					<input type="text" class="form-control" name ="userGroupEMail" id="userGroupEMail" ngModel placeholder="TEAM DL *(Case Sensitive)" required [(ngModel)]="userInfo.mmtGroupEMailId">
-					<script type="text/javascript">
-                		$('userGroupEMail').inputfit();
-              		</script>
+				<li style="padding-top: 5%; padding-right: 15%; padding-bottom: 5%;">
+					<div class="btn-group dropdown">
+						<button type="button" class="btn light-bl-btn">Select Team DL</button>
+						<select class = "custom-select" name="userGroupEMail" id="userGroupEMail" ngModel [(ngModel)]="userInfo.mmtGroupEMailId" required>  
+	                		<option *ngFor="let projectDeliveryEMail of projectDeliveryEMailLists" [value]="projectDeliveryEMail">{{projectDeliveryEMail}}</option>
+	             		</select>
+             		</div>             	
 				</li>
 				<div style="padding: 5%;">
 					<button class="btn btn-blue btn-info" (click)="registerUser(userInfo)">REGISTER USER</button>
@@ -39,8 +57,8 @@
 			</ul>	
 		</div>
 		<div id="sidebar-wrapper" *ngIf="!isLoggedIn && !registeringUser" >
-			<div *ngIf="errorMessage" class="alert alert-info">
-				{{errorMessage}}
+			<div *ngIf="loginErrorMessage" class="alert alert-info">
+				{{loginErrorMessage}}
 			</div>
 			<ul class="sidebar-nav">				
 				<li style="margin-top: 31%; padding: 5%">
@@ -56,7 +74,7 @@
 					<a style="color: red" href="#" (click)="loadRegisterForm()"> Register </a>
 				</div>
 				<li>
-					<a class="word" href="https://drive.google.com/open?id=1qPd5kZ2SRyBVdDKvl2twbOWyDHSWxgGP&embedded=true">Quick Start</a>
+					<a class="word" href="https://drive.google.com/open?id=1VcD5MvQk7OP6jgGHNKFxBdoGnSp90v6k&embedded=true">Quick Start</a>
 					<script type="text/javascript">
 						$(document).ready(function() {
 						 $(".word").fancybox({

@@ -5,6 +5,8 @@ import { UserInfo } from './userinfo';
 import { LoginService } from './app-services/login.service';
 import { RegisterService } from './app-services/register.service';
 import { Router } from '@angular/router';
+import { UtilService } from './app-services/util.service';
+import { AlertsService } from './app-services/alerts.service';
 
 @Component({
   selector: 'app-root',
@@ -22,12 +24,21 @@ export class AppComponent {
   userEmailId: string;
   userGroupEmailId: string;
   registeringUser: boolean = false;
+  projectDeliveryEMailLists: Array<string>;
+  promiseLogin: Promise<UserInfo>;
+  loginErrorMessage: any;
+  regErrorMessage: any;
 
   constructor(
   	private loginService: LoginService,
   	private regsiterService: RegisterService,
+    private utilService: UtilService,
     private _router: Router
   	){  }
+
+  ngOnInit(): void {
+    this.projectDeliveryEMailLists = this.utilService.projectDeliveryEMailLists;
+  }
 
   loginUser(loginData: LoginInfo): void {
 
@@ -41,7 +52,11 @@ export class AppComponent {
       localStorage.setItem("loggedinUser", this.userId);
       localStorage.setItem("userEmail",this.userEmailId);
       localStorage.setItem("groupEmail",this.userGroupEmailId );
-    })
+    },
+    error => {
+      this.loginErrorMessage = "Either UserName or Password is incorrect";
+    }
+    )
     }
 
     loadLoginForm(): void {
@@ -62,7 +77,11 @@ export class AppComponent {
       this.userGroupEmailId = registrationResponse.mmtGroupEMailId;
       this.isLoggedIn = true;
       this.isClassVisible = false;
-      })
+      },
+    error => {
+      this.regErrorMessage = "Either UserName or Password is incorrect";
+    }
+    )
     }
 
     logoutUser(): void {

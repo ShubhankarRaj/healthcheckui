@@ -5,6 +5,7 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+import { AlertsService } from './alerts.service';
 
 @Injectable()
 export class LoginService {
@@ -13,7 +14,8 @@ export class LoginService {
 
   constructor(
     private http: Http,
-     private _router: Router
+     private _router: Router,
+     private alertsService: AlertsService
     ) { }
 
   loginUser(loginData: LoginInfo): Promise<UserInfo> {
@@ -26,14 +28,6 @@ export class LoginService {
     console.error('Some error occured', error);
     return Promise.reject(error.message || error);
   }
-
-/*checkCredentials(){
-    if(localStorage.getItem("loggedinUser") != '') {
-      return true;
-    } else {
-       this._router.navigate(['dashboard']);
-    }
-  }*/
 
   checkCredentials(): boolean {
       if(localStorage.getItem("loggedinUser") && (localStorage.getItem("loggedinUser") != '')){
