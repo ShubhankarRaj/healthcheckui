@@ -31,15 +31,6 @@ export class AppComponent {
 
   loginUser(loginData: LoginInfo): void {
 
-      // this.userId = "MMT6540";
-      // this.userEmailId = "test@gmail.com";
-      // this.userGroupEmailId = "group@gmail.com";
-      // this.isLoggedIn = true;
-      // this.isClassVisible = false;
-      // localStorage.setItem("loggedinUser", this.userId);
-      // localStorage.setItem("userEmail",this.userEmailId);
-      // localStorage.setItem("groupEmail",this.userGroupEmailId );
-
     this.loginService.loginUser(loginData)
     .then((loginResponse) => {
       this.userId = loginResponse.mmtId;

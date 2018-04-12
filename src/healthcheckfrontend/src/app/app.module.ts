@@ -14,7 +14,7 @@ import { ProjectAdminComponent } from './project-admin/project-admin.component';
 import { HealthcheckAdminComponent } from './healthcheck-admin/healthcheck-admin.component';
 import { HealthcheckDashboardComponent } from './healthcheck-dashboard/healthcheck-dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
-
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,8 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    PdfViewerModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, ProjectService, UtilService, HealthcheckService, LoginService, RegisterService],
   bootstrap: [AppComponent]
