@@ -41,7 +41,6 @@ export class AppComponent {
   }
 
   loginUser(loginData: LoginInfo): void {
-
     this.loginService.loginUser(loginData)
     .then((loginResponse) => {
       this.userId = loginResponse.mmtId;
@@ -60,11 +59,13 @@ export class AppComponent {
     }
 
     loadLoginForm(): void {
+      this.regErrorMessage = null;
       this.isLoggedIn = false;
       this.registeringUser = false;
     }
 
     loadRegisterForm(): void {
+      this.loginErrorMessage = null;
       this.registeringUser = true;
     }
 
@@ -85,6 +86,7 @@ export class AppComponent {
     }
 
     logoutUser(): void {
+      this.loginErrorMessage = null;
       this.userId = null;
       this.userEmailId = null;
       this.userGroupEmailId = null;
